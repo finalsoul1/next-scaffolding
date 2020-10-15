@@ -1,12 +1,15 @@
-import express, {Request, Response, Router} from 'express'
+import express, { Request, Response, Router } from 'express'
 import next from 'next'
 
+import { proxy } from '../services/api'
+
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({dev})
-// const app = next({ dir: './src', dev })
+const app = next({ dev })
 const handle = app.getRequestHandler()
 const port = process.env.PORT || 3000
 const router = Router()
+
+router.post('/api/:name', proxy)
 
 router.get('*', (req: Request, res: Response) => {
   return handle(req, res)
