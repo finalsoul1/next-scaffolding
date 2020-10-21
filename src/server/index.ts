@@ -1,7 +1,7 @@
 import express, { Request, Response, Router } from 'express'
 import next from 'next'
 
-import { proxy } from '../services/api'
+import { proxy } from '~services/api'
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
