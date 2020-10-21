@@ -4,7 +4,6 @@ import Layout from '~components/Layout';
 import { api } from '~services/api'
 
 const get = ({ name }: any) => {
-  console.log(name)
   return (
     <Layout title="Api Test GET | Next.js + TypeScript Example">
       <p>Get product name is <span>{name}</span></p>
