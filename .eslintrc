@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended",
+    "google"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react"],
+  "rules": {
+    "indent": [2, "tab"],
+    "no-tabs": "off",
+    "object-curly-spacing": "off",
+    "max-len": "off",
+    "no-console": "warn",
+    "@typescript-eslint/no-var-requires": "off",
+    "new-cap": "off"
+  }
+}
