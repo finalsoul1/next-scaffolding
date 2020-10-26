@@ -9,7 +9,7 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "react", "prettier"],
   "rules": {
-    "indent": [2, "tab"],
+    "indent": [2, 2],
     "no-tabs": "off",
     "object-curly-spacing": "off",
     "max-len": "off",
