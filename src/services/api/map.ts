@@ -1,5 +1,5 @@
 export default (key: string) => {
-  const map: { [index: string]: object } = {
+  const map: { [index: string]: { url: string; method: string } } = {
     getProduct: {
       url: 'https://gateway-stage.seoulstore.com/siteProducts/:id',
       method: 'GET',

@@ -12,7 +12,9 @@ const getCategoryNames = () => {
 }
 
 const _static = ({ names }: any) => {
-  const { isLoading, error, data }: any = useQuery('categoryNames', getCategoryNames, { initialData: names })
+  const { isLoading, error, data }: any = useQuery('categoryNames', getCategoryNames, {
+    initialData: names,
+  })
 
   if (isLoading) return <h1>Now loading.....</h1>
   if (error) return <h1>Error!! {error.message}</h1>
@@ -20,8 +22,10 @@ const _static = ({ names }: any) => {
   return (
     <Layout title="Api Test GET react-query | Next.js + TypeScript Example">
       <ul>
-        {data.map((name: string, idx: number) => <li key={idx}>{name}</li>)}
-        {/* {names.map((name: string, idx: number) => <li key={idx}>{name}</li>)}*/}
+        {data.map((name: string, idx: number) => (
+          <li key={idx}>{name}</li>
+        ))}
+        {/* {names.map((name: string, idx: number) => <li key={idx}>{name}</li>)} */}
       </ul>
     </Layout>
   )
@@ -29,10 +33,11 @@ const _static = ({ names }: any) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const response = await getCategoryNames()
-
   return {
     props: {
-      names: response.data.map((category: { [key: string]: any }) => category.descriptions.name || []),
+      names: response.data.map(
+        (category: { [key: string]: any }) => category.descriptions.name || []
+      ),
     },
   }
 }

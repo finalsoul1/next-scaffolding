@@ -4,7 +4,7 @@ import Head from 'next/head'
 
 type Props = {
   children?: ReactNode
-  title?: string
+  title: string
 }
 
 const Layout = ({ children, title = 'This is the default title' }: Props) => (
@@ -18,22 +18,22 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
       <nav>
         <Link href="/">
           <a>Home</a>
-        </Link>{' '}
-        |{' '}
+        </Link>
         <Link href="/about">
           <a>About</a>
-        </Link>{' '}
-        |{' '}
+        </Link>
         <Link href="/users">
           <a>Users List</a>
-        </Link>{' '}
-        | <a href="/api/users">Users API</a>
+        </Link>
+        <Link href="/api/users">
+          <a>Users API</a>
+        </Link>
       </nav>
     </header>
     {children}
     <footer>
       <hr />
-      <span>I'm here to stay (Footer)</span>
+      <span>I am here to stay (Footer)</span>
     </footer>
   </div>
 )

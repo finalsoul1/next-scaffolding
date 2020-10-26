@@ -2,14 +2,13 @@ import { Request, Response, ErrorRequestHandler, NextFunction } from 'express'
 import axios from 'axios'
 import apiMap from './map'
 
-const _findParamsInUrl = (url: string) => {
+const findParamsInUrl = (url: string) => {
   const regexp = /(?::)(\D\w+)/gim
   const params = url.match(regexp)
   return params && params.length > 0 ? params.map((match) => match.replace(':', '')) : []
 }
 
-
-const _makeRequestUrl = (url: string, params: Array<string>, data: { [key: string]: any }) => {
+const makeRequestUrl = (url: string, params: Array<string>, data: { [key: string]: any }) => {
   if (!params) return url
   let requestUrl = url
   params.forEach((param) => {
@@ -18,23 +17,23 @@ const _makeRequestUrl = (url: string, params: Array<string>, data: { [key: strin
   return requestUrl
 }
 
-const _bodyBuilder = (data: object, params: Array<string>, body: object) => {
-  const _body: { [index: string]: any } = Object.assign({}, data, body)
-  if (!params) return _body
+const bodyBuilder = (data: any, params: Array<string>, body: any) => {
+  const mergedBody: { [index: string]: any } = { ...data, ...body }
+  if (!params) return mergedBody
   params.forEach((param) => {
-    if (_body[param]) delete _body[param]
+    if (mergedBody[param]) delete mergedBody[param]
   })
-  return _body
+  return body
 }
 
-const _getApiOptions = (config: { [key: string]: any }) => {
+const getApiOptions = (config: { [key: string]: any }) => {
   const headers = {
-    'Authorization': 'Basic ' + Buffer.from('seoulstore:devteam!').toString('base64'),
+    Authorization: `Basic ${Buffer.from('seoulstore:devteam!').toString('base64')}`,
   }
   const apiOptions: any = apiMap(config.key)
-  const params = _findParamsInUrl(apiOptions.url)
-  const requestUrl = _makeRequestUrl(apiOptions.url, params, config.data)
-  const body = _bodyBuilder(apiOptions.data, params, config.data)
+  const params = findParamsInUrl(apiOptions.url)
+  const requestUrl = makeRequestUrl(apiOptions.url, params, config.data)
+  const body = bodyBuilder(apiOptions.data, params, config.data)
 
   return {
     url: requestUrl,
@@ -47,15 +46,15 @@ const _getApiOptions = (config: { [key: string]: any }) => {
 
 // Use for next serverside app
 export const api = async (config: { [key: string]: any }, req?: Request) => {
-  const options = _getApiOptions(config)
+  const options = getApiOptions(config)
   const next = (err: ErrorRequestHandler) => {
     console.log(`Api error from ${req ? 'server' : 'front'}`, err)
     throw err
   }
 
   return axios(options)
-      .then((res) => res.data)
-      .catch(next)
+    .then((res) => res.data)
+    .catch(next)
 }
 
 // because don't need proxy at server side

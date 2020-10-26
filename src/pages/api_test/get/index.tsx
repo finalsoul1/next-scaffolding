@@ -1,12 +1,14 @@
 import { GetServerSideProps } from 'next'
 import React from 'react'
-import Layout from '~components/Layout';
+import Layout from '~components/Layout'
 import { api } from '~services/api'
 
 const get = ({ name }: any) => {
   return (
     <Layout title="Api Test GET | Next.js + TypeScript Example">
-      <p>Get product name is <span>{name}</span></p>
+      <p>
+        Get product name is <span>{name}</span>
+      </p>
     </Layout>
   )
 }

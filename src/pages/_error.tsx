@@ -2,9 +2,7 @@ import React from 'react'
 import { NextPageContext } from 'next'
 
 const Error = ({ statusCode }: any) => {
-  return (
-    <h1>{statusCode}</h1>
-  )
+  return <h1>{statusCode}</h1>
 }
 
 Error.getInitialProps = ({ res, err }: NextPageContext) => {

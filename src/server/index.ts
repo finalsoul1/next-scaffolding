@@ -1,6 +1,5 @@
-import express, { Request, Response, Router } from 'express'
+import express, { Router, Request, Response } from 'express'
 import next from 'next'
-
 import { proxy } from '~services/api'
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -13,9 +12,8 @@ router.post('/api/:name', proxy)
 
 router.get('*', (req: Request, res: Response) => {
   return handle(req, res)
-});
-
-(async () => {
+})
+;(async () => {
   try {
     await app.prepare()
     const server = express()
