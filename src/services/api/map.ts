@@ -8,6 +8,6 @@ export default (key: string) => {
 			url: 'https://gateway-stage.seoulstore.com/siteCategories',
 			method: 'GET',
 		},
-	};
-	return map[key];
-};
+	}
+	return map[key]
+}

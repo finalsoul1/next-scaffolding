@@ -1,6 +1,6 @@
-import React from 'react';
-import Link from 'next/link';
-import Layout from '~components/Layout';
+import React from 'react'
+import Link from 'next/link'
+import Layout from '~components/Layout'
 
 const ApiTest = () => {
 	return (
@@ -13,7 +13,7 @@ const ApiTest = () => {
 				</li>
 			</ul>
 		</Layout>
-	);
-};
+	)
+}
 
-export default ApiTest;
+export default ApiTest

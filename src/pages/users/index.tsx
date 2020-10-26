@@ -1,8 +1,8 @@
-import React from 'react';
-import { GetStaticProps } from 'next';
-import Link from 'next/link';
-import Layout from '../../components/Layout';
-import { User } from '~interfaces/index';
+import React from 'react'
+import { GetStaticProps } from 'next'
+import Link from 'next/link'
+import Layout from '../../components/Layout'
+import { User } from '~interfaces/index'
 
 const WithStaticProps = () => (
 	<Layout title="Users List | Next.js + TypeScript Example">
@@ -18,7 +18,7 @@ const WithStaticProps = () => (
 			</Link>
 		</p>
 	</Layout>
-);
+)
 
 export const getStaticProps: GetStaticProps = async () => {
 	const items: User[] = [
@@ -26,8 +26,8 @@ export const getStaticProps: GetStaticProps = async () => {
 		{ id: 102, name: 'Bob' },
 		{ id: 103, name: 'Caroline' },
 		{ id: 104, name: 'Dave' },
-	];
-	return { props: { items } };
-};
+	]
+	return { props: { items } }
+}
 
-export default WithStaticProps;
+export default WithStaticProps

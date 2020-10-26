@@ -1,7 +1,7 @@
-import { GetServerSideProps } from 'next';
-import React from 'react';
-import Layout from '~components/Layout';
-import { api } from '~services/api';
+import { GetServerSideProps } from 'next'
+import React from 'react'
+import Layout from '~components/Layout'
+import { api } from '~services/api'
 
 const get = ({ name }: any) => {
 	return (
@@ -10,8 +10,8 @@ const get = ({ name }: any) => {
 				Get product name is <span>{name}</span>
 			</p>
 		</Layout>
-	);
-};
+	)
+}
 
 export const getServerSideProps: GetServerSideProps = async () => {
 	// response has { status, data }
@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 		data: {
 			id: 1278016,
 		},
-	});
+	})
 	// const response = await api({
 	//   key: 'getCategories',
 	// })
@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 		props: {
 			name: response.data.descriptions.name || '상품명',
 		},
-	};
-};
+	}
+}
 
-export default get;
+export default get
