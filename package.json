@@ -9,7 +9,7 @@
     "start": "NODE_ENV=production node dist/index.js",
     "type-check": "tsc",
     "prettier": "prettier --write --config ./.prettierrc \"**/*.{ts,tsx}\"",
-    "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings=0",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix './src/**/*.{ts,tsx}'"
   },
   "license": "MIT",
