@@ -10,7 +10,8 @@
     "type-check": "tsc",
     "prettier": "prettier --write --config ./.prettierrc \"**/*.{ts,tsx}\"",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
-    "lint:fix": "eslint --fix './src/**/*.{ts,tsx}'"
+    "lint:fix": "eslint --fix './src/**/*.{ts,tsx}'",
+    "prepend":"npm config set scripts-prepend-node-path true"
   },
   "license": "MIT",
   "dependencies": {
