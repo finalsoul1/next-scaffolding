@@ -10,7 +10,7 @@ const IndexPage = () => (
     </span>
     <p>
       <Link href="/about">
-        <a href="/#">About</a>
+        <a>About</a>
       </Link>
     </p>
   </Layout>
