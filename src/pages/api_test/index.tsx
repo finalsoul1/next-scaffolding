@@ -8,7 +8,7 @@ const ApiTest = () => {
       <ul>
         <li>
           <Link href="/api_test/get">
-            <a>GET</a>
+            <a href="/#">GET</a>
           </Link>
         </li>
       </ul>

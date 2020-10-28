@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 
 type Props = {
-  children?: ReactNode
+  children: ReactNode
   title: string
 }
 
@@ -17,16 +17,16 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
     <header>
       <nav>
         <Link href="/">
-          <a>Home</a>
+          <a href="/#">Home</a>
         </Link>
         <Link href="/about">
-          <a>About</a>
+          <a href="/#">About</a>
         </Link>
         <Link href="/users">
-          <a>Users List</a>
+          <a href="/#">Users List</a>
         </Link>
         <Link href="/api/users">
-          <a>Users API</a>
+          <a href="/#">Users API</a>
         </Link>
       </nav>
     </header>
