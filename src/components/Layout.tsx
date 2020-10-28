@@ -17,16 +17,16 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
     <header>
       <nav>
         <Link href="/">
-          <a href="/#">Home</a>
+          <a>Home</a>
         </Link>
         <Link href="/about">
-          <a href="/#">About</a>
+          <a>About</a>
         </Link>
         <Link href="/users">
-          <a href="/#">Users List</a>
+          <a>Users List</a>
         </Link>
         <Link href="/api/users">
-          <a href="/#">Users API</a>
+          <a>Users API</a>
         </Link>
       </nav>
     </header>

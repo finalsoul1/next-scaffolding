@@ -37,7 +37,9 @@
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    ".eslintrc.js"
   ],
   "exclude": [
     "node_modules"
