@@ -26,6 +26,7 @@ module.exports = {
     'no-console': 'off',
     'import/extensions': 'off',
     'react/require-default-props': 'off',
+    'jsx-a11y/anchor-is-valid': 'off',
   },
   parserOptions: {
     project: './tsconfig.json',
