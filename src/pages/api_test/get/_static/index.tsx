@@ -22,7 +22,7 @@ const Static = ({ names }: any) => {
   return (
     <Layout title="Api Test GET react-query | Next.js + TypeScript Example">
       <ul>
-        {data.map((name: string, idx: number) => (
+        {data.map((name: string) => (
           <li key={new Date().getTime()}>{name}</li>
         ))}
         {/* {names.map((name: string, idx: number) => <li key={idx}>{name}</li>)} */}
