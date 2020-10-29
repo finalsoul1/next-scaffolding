@@ -1,4 +1,4 @@
-export default (key: string) => {
+const apiMap = (key: string) => {
   const map: { [index: string]: { url: string; method: string } } = {
     getProduct: {
       url: 'https://gateway-stage.seoulstore.com/siteProducts/:id',
@@ -11,3 +11,5 @@ export default (key: string) => {
   }
   return map[key]
 }
+
+export default apiMap
