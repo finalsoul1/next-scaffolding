@@ -9,6 +9,7 @@ const nextConfig = {
   env: {},
   publicRuntimeConfig: {
     isProd,
+    isDev,
     domain: process.env.DOMAIN,
     apiServer: process.env.API_SERVER,
     sinsaSever: process.env.SINSA_SERVER,
