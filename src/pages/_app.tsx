@@ -2,11 +2,16 @@ import type { AppProps } from 'next/app'
 import { NextPageContext, NextComponentType } from 'next'
 import React from 'react'
 
-const RootApp = ({ Component, pageProps }: AppProps) => {
-  return <Component {...pageProps} />
+interface ForGetInitialProps {
+  Component: NextComponentType
+  ctx: NextPageContext
 }
 
-RootApp.getInitialProps = async ({ Component, ctx }) => {
+const RootApp = ({ Component, pageProps }: AppProps) => {
+  return <Component {...pageProps.props} />
+}
+
+RootApp.getInitialProps = async ({ Component, ctx }: ForGetInitialProps) => {
   let pageProps = {}
 
   if (Component.getInitialProps) pageProps = await Component.getInitialProps(ctx)
