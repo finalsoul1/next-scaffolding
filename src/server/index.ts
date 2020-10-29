@@ -9,7 +9,7 @@ const handle = app.getRequestHandler()
 const port = process.env.PORT || 3000
 const router = Router()
 
-router.post('/api/:name', proxy)
+router.post('/api/:key', proxy)
 
 router.get('*', (req: Request, res: Response) => {
   return handle(req, res)

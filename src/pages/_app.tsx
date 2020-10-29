@@ -14,7 +14,7 @@ const RootApp = ({ Component, pageProps }: AppProps) => {
 RootApp.getInitialProps = async ({ Component, ctx }: ForGetInitialProps) => {
   let pageProps = {}
 
-  if (Component.getInitialProps) pageProps = await Component.getInitialProps(ctx)
+  if (Component.getInitialProps) pageProps = await Component.getInitialProps({ ...ctx })
 
   return { pageProps }
 }

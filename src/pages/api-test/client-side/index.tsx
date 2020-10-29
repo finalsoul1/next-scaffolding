@@ -1,6 +1,3 @@
-// todo: should fix error
-// this page has gateway-stage connection error
-
 import React, { useEffect } from 'react'
 import Layout from '~components/Layout'
 import { api } from '~services/api'
@@ -17,6 +14,7 @@ const clientSide = ({ name }: any) => {
     }
     console.log('in client-side', getProductData())
   }, [])
+
   return (
     <Layout title="Api Test on ClientSide">
       <p>

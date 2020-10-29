@@ -3,6 +3,12 @@ import { IncomingMessage, ServerResponse } from 'http'
 import axios from 'axios'
 import apiMap from './map'
 
+// todo: move to src/interface
+interface ClientSideReq extends IncomingMessage {
+  params: { key: string }
+  body: { [key: string]: any }
+}
+
 const findParamsInUrl = (url: string) => {
   const regexp = /(?::)(\D\w+)/gim
   const params = url.match(regexp)
@@ -54,7 +60,11 @@ const getProxyApiOptions = (config: { [key: string]: any }) => {
   }
 }
 
-export const api = async (config: { [key: string]: any }, req?: IncomingMessage, res?: ServerResponse) => {
+export const api = async (
+  config: { [key: string]: any },
+  req?: IncomingMessage,
+  res?: ServerResponse
+) => {
   let options
   if (req && res) options = getApiOptions(config)
   else options = getProxyApiOptions(config)
@@ -66,20 +76,28 @@ export const api = async (config: { [key: string]: any }, req?: IncomingMessage,
 
   // @ts-ignore
   return axios(options)
-    .then((res) => res.data)
+    .then((res) => {
+      return res.data
+    })
     .catch(next)
 }
 
-export const proxy = async (req?: Request, res?: Response) => {
-  console.log(res)
-  console.log(req)
-  /*const options = getApiOptions(config)
+export const proxy = async (req: ClientSideReq /*res?: Response*/) => {
+  const config = {
+    key: req.params.key,
+    data: req.body,
+  }
+
+  const options = getApiOptions(config)
   const next = (err: ErrorRequestHandler) => {
     console.log(`Api error from ${req ? 'server' : 'front'}`, err)
     throw err
   }
 
+  // todo: Should fix error, Error: connect ETIMEDOUT 3.35.121.192:443
   return axios(options)
-    .then((res) => res.data)
-    .catch(next)*/
+    .then((res) => {
+      return res.data
+    })
+    .catch(next)
 }
