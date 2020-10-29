@@ -1,22 +1,32 @@
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const withTM = require('next-transpile-modules')
+const MergeIntoSingleFilePlugin = require('webpack-merge-and-include-globally')
+
 const isProd = process.env.NODE_ENV === 'production'
-const withTM = require('next-transpile-modules')([])
+const isDev = process.env.NODE_ENV === 'development'
+const transpileModules = []
 
 const nextConfig = {
-	webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-		// config.optimization = {
-		// 	minimizer: [
-		// 		new UglifyJSPlugin({
-		// 			uglifyOptions: {
-		// 				compress: {
-		// 					drop_console: isProd,
-		// 				},
-		// 			},
-		// 		}),
-		// 	],
-		// };
-		return config
-	},
+  env: {},
+  publicRuntimeConfig: {
+    isProd,
+    domain: process.env.DOMAIN,
+    apiServer: process.env.API_SERVER,
+    sinsaSever: process.env.SINSA_SERVER,
+    lamdaServer: process.env.LAMBDA_SERVER,
+    seokchonServer: process.env.SEOKCHON_SERVER,
+  },
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    return {
+      ...config,
+      plugins: [
+        ...config.plugins,
+        new MergeIntoSingleFilePlugin({
+          files: {
+            [`static/${buildId}/libs.js`]: ['src/libs/*.js'],
+          },
+        }),
+      ],
+    }
+  },
 }
-
-module.exports = withTM(nextConfig)
+module.exports = withTM(transpileModules)(nextConfig)
