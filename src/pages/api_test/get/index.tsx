@@ -7,7 +7,8 @@ const get = ({ name }: any) => {
   return (
     <Layout title="Api Test GET | Next.js + TypeScript Example">
       <p>
-        Get product name is <span>{name}</span>
+        Get product name is
+        <span>{name}</span>
       </p>
     </Layout>
   )
