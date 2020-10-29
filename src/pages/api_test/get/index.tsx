@@ -1,7 +1,7 @@
-import { GetServerSideProps } from 'next'
+// import { GetServerSideProps } from 'next'
 import React from 'react'
 import Layout from '~components/Layout'
-import { api } from '~services/api'
+// import { api } from '~services/api'
 
 const get = ({ name }: any) => {
   return (
@@ -13,7 +13,7 @@ const get = ({ name }: any) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+/*export const getServerSideProps: GetServerSideProps = async () => {
   // response has { status, data }
 
   const response = await api({
@@ -22,16 +22,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
       id: 1278016,
     },
   })
-  // const response = await api({
-  //   key: 'getCategories',
-  // })
-  // console.log(response)
 
   return {
     props: {
       name: response.data.descriptions.name || '상품명',
     },
   }
-}
+}*/
 
 export default get

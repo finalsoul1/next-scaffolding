@@ -1,5 +1,5 @@
 // Comment is using react-query code, if you want check this code, uncomment
-import { GetStaticProps } from 'next'
+// import { GetStaticProps } from 'next'
 import React from 'react'
 import { useQuery } from 'react-query'
 import Layout from '~components/Layout'
@@ -25,13 +25,12 @@ const _static = ({ names }: any) => {
         {data.map((name: string, idx: number) => (
           <li key={idx}>{name}</li>
         ))}
-        {/* {names.map((name: string, idx: number) => <li key={idx}>{name}</li>)} */}
       </ul>
     </Layout>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+/*export const getStaticProps: GetStaticProps = async () => {
   const response = await getCategoryNames()
   return {
     props: {
@@ -40,6 +39,6 @@ export const getStaticProps: GetStaticProps = async () => {
       ),
     },
   }
-}
+}*/
 
 export default _static

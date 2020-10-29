@@ -1,4 +1,4 @@
-import { Request, Response, ErrorRequestHandler, NextFunction } from 'express'
+import { Request, Response, ErrorRequestHandler } from 'express'
 import axios from 'axios'
 import apiMap from './map'
 
@@ -39,14 +39,41 @@ const getApiOptions = (config: { [key: string]: any }) => {
     url: requestUrl,
     method: apiOptions.method,
     headers,
-    ...(apiOptions.method === 'get' ? { params: body } : { data: body }),
+    ...(apiOptions.method.toLowerCase() === 'get' ? { params: body } : { data: body }),
     validateStatus: (status: number) => status >= 200 && status < 500,
   }
 }
 
-// Use for next serverside app
+const getProxyApiOptions = (config: { [key: string]: any }) => {
+  return {
+    method: 'post',
+    url: `/api/${config.key}`,
+    data: config.data,
+    validateStatus: (status: number) => status >= 200 && status < 500,
+  }
+}
+
 export const api = async (config: { [key: string]: any }, req?: Request) => {
-  const options = getApiOptions(config)
+  // todo: condition check from ssr or csr
+  let options
+  if (req) options = getApiOptions(config)
+  else options = getProxyApiOptions(config)
+
+  const next = (err: ErrorRequestHandler) => {
+    console.log(`Api error from ${req ? 'server' : 'front'}`, err)
+    throw err
+  }
+
+  // @ts-ignore
+  return axios(options)
+    .then((res) => res.data)
+    .catch(next)
+}
+
+export const proxy = async (req?: Request, res?: Response) => {
+  console.log(res)
+  console.log(req)
+  /*const options = getApiOptions(config)
   const next = (err: ErrorRequestHandler) => {
     console.log(`Api error from ${req ? 'server' : 'front'}`, err)
     throw err
@@ -54,12 +81,5 @@ export const api = async (config: { [key: string]: any }, req?: Request) => {
 
   return axios(options)
     .then((res) => res.data)
-    .catch(next)
-}
-
-// because don't need proxy at server side
-export const proxy = async (req: Request, res: Response, next: NextFunction) => {
-  console.log(req)
-  console.log(res)
-  console.log(next)
+    .catch(next)*/
 }
