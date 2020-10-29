@@ -1,4 +1,5 @@
-import { Request, Response, ErrorRequestHandler } from 'express'
+import { ErrorRequestHandler } from 'express'
+import { IncomingMessage, ServerResponse } from 'http'
 import axios from 'axios'
 import apiMap from './map'
 
@@ -53,10 +54,9 @@ const getProxyApiOptions = (config: { [key: string]: any }) => {
   }
 }
 
-export const api = async (config: { [key: string]: any }, req?: Request) => {
-  // todo: condition check from ssr or csr
+export const api = async (config: { [key: string]: any }, req?: IncomingMessage, res?: ServerResponse) => {
   let options
-  if (req) options = getApiOptions(config)
+  if (req && res) options = getApiOptions(config)
   else options = getProxyApiOptions(config)
 
   const next = (err: ErrorRequestHandler) => {
