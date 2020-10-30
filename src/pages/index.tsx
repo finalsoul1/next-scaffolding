@@ -1,19 +1,8 @@
 import React from 'react'
-import Link from 'next/link'
-import Layout from '~components/Layout'
+import { Flex } from 'rebass'
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js </h1>
-    <span role="img" aria-label="Panda">
-      👋
-    </span>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+const IndexPage = () => {
+  return <Flex>dfjdskl;fjdsk;al</Flex>
+}
 
 export default IndexPage
