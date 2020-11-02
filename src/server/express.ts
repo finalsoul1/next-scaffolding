@@ -1,7 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express'
-// todo: shoud fix cannot find module cors, compression error
+// todo: should fix cannot find module cors, compression error
 // import cors from 'cors'
 // import compression from 'compression'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import bodyParser from 'body-parser'
 
 export default (routes: express.Router) => {
@@ -13,11 +14,9 @@ export default (routes: express.Router) => {
   app.use(bodyParser.json())
 
   app.use(function (req: Request, res: Response, next: NextFunction) {
-    if (process.env.NODE_ENV !== 'production') {
-      res.header('Access-Control-Allow-Origin', req.protocol + '://' + req.hostname)
-    } else {
-      res.header('Access-Control-Allow-Origin', 'https://' + req.hostname)
-    }
+    if (process.env.NODE_ENV !== 'production')
+      res.header('Access-Control-Allow-Origin', `${req.protocol}://${req.hostname}`)
+    else res.header('Access-Control-Allow-Origin', `https://${req.hostname}`)
 
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS')
     res.header(

@@ -1,12 +1,20 @@
-import { ErrorRequestHandler } from 'express'
+// import { ErrorRequestHandler } from 'express'
 import { IncomingMessage, ServerResponse } from 'http'
-import axios from 'axios'
+import axios /* , { AxiosError } */ from 'axios'
 import apiMap from './map'
 
 // todo: move to src/interface
 interface ClientSideReq extends IncomingMessage {
   params: { key: string }
   body: { [key: string]: any }
+}
+
+interface ApiConfig {
+  headers?: { Authorization: string }
+  method: any
+  validateStatus: (status: number) => boolean
+  url: string
+  timeout?: number
 }
 
 const findParamsInUrl = (url: string) => {
@@ -36,6 +44,7 @@ const bodyBuilder = (data: any, params: Array<string>, body: any) => {
 const getApiOptions = (config: { [key: string]: any }) => {
   const headers = {
     Authorization: `Basic ${Buffer.from('seoulstore:devteam!').toString('base64')}`,
+    'D-Authorization': 'bXlnb29kczpjanJjanJxa3I0ZHlkZ25sV2tk',
   }
   const apiOptions: any = apiMap(config.key)
   const params = findParamsInUrl(apiOptions.url)
@@ -48,6 +57,7 @@ const getApiOptions = (config: { [key: string]: any }) => {
     headers,
     ...(apiOptions.method.toLowerCase() === 'get' ? { params: body } : { data: body }),
     validateStatus: (status: number) => status >= 200 && status < 500,
+    timeout: 10000,
   }
 }
 
@@ -57,47 +67,59 @@ const getProxyApiOptions = (config: { [key: string]: any }) => {
     url: `/api/${config.key}`,
     data: config.data,
     validateStatus: (status: number) => status >= 200 && status < 500,
+    timeout: 11000,
   }
 }
 
-export const api = async (
+export const api = (
   config: { [key: string]: any },
   req?: IncomingMessage,
   res?: ServerResponse
 ) => {
-  let options
+  let options: ApiConfig
   if (req && res) options = getApiOptions(config)
   else options = getProxyApiOptions(config)
 
-  const next = (err: ErrorRequestHandler) => {
-    console.log(`Api error from ${req ? 'server' : 'front'}`, err)
-    throw err
-  }
-
-  // @ts-ignore
+  console.log('in api function of options', options)
+  // eslint-disable-next-line no-return-await
   return axios(options)
-    .then((res) => {
-      return res.data
+    .then(({ data }) => {
+      return data
     })
-    .catch(next)
+    .catch((error) => {
+      if (error.response) {
+        console.error('api error.response', error.response)
+      } else if (error.request) {
+        console.error('api error.request', error.request)
+      } else {
+        console.error('error')
+      }
+      return Promise.reject(error)
+    })
 }
 
-export const proxy = async (req: ClientSideReq /*res?: Response*/) => {
+// todo: return data with statusCode
+export const proxy = (req: ClientSideReq /* , res?: ServerResponse */) => {
   const config = {
     key: req.params.key,
     data: req.body,
   }
 
   const options = getApiOptions(config)
-  const next = (err: ErrorRequestHandler) => {
-    console.log(`Api error from ${req ? 'server' : 'front'}`, err)
-    throw err
-  }
 
-  // todo: Should fix error, Error: connect ETIMEDOUT 3.35.121.192:443
   return axios(options)
-    .then((res) => {
-      return res.data
+    .then(({ data }) => {
+      console.log('in proxy then', data)
+      return data
     })
-    .catch(next)
+    .catch((error) => {
+      if (error.response) {
+        console.error('proxy error.response', error.response)
+      } else if (error.request) {
+        console.error('proxy error.request', error.request)
+      } else {
+        console.error('error')
+      }
+      return Promise.reject(error)
+    })
 }
