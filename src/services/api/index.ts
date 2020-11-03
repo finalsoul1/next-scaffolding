@@ -1,6 +1,6 @@
-// import { ErrorRequestHandler } from 'express'
 import { IncomingMessage, ServerResponse } from 'http'
-import axios /* , { AxiosError } */ from 'axios'
+import { NextApiResponse } from 'next'
+import axios from 'axios'
 import apiMap from './map'
 
 // todo: move to src/interface
@@ -57,7 +57,6 @@ const getApiOptions = (config: { [key: string]: any }) => {
     headers,
     ...(apiOptions.method.toLowerCase() === 'get' ? { params: body } : { data: body }),
     validateStatus: (status: number) => status >= 200 && status < 500,
-    timeout: 10000,
   }
 }
 
@@ -67,11 +66,10 @@ const getProxyApiOptions = (config: { [key: string]: any }) => {
     url: `/api/${config.key}`,
     data: config.data,
     validateStatus: (status: number) => status >= 200 && status < 500,
-    timeout: 11000,
   }
 }
 
-export const api = (
+export const api = async (
   config: { [key: string]: any },
   req?: IncomingMessage,
   res?: ServerResponse
@@ -80,11 +78,10 @@ export const api = (
   if (req && res) options = getApiOptions(config)
   else options = getProxyApiOptions(config)
 
-  console.log('in api function of options', options)
   // eslint-disable-next-line no-return-await
-  return axios(options)
-    .then(({ data }) => {
-      return data
+  return await axios(options)
+    .then(({ status, statusText, data }) => {
+      return { status, statusText, data: data.data || data }
     })
     .catch((error) => {
       if (error.response) {
@@ -94,23 +91,21 @@ export const api = (
       } else {
         console.error('error')
       }
-      return Promise.reject(error)
+      throw error
     })
 }
 
-// todo: return data with statusCode
-export const proxy = (req: ClientSideReq /* , res?: ServerResponse */) => {
+export const proxy = async (req: ClientSideReq, res: NextApiResponse) => {
   const config = {
     key: req.params.key,
     data: req.body,
   }
-
   const options = getApiOptions(config)
 
-  return axios(options)
-    .then(({ data }) => {
-      console.log('in proxy then', data)
-      return data
+  // eslint-disable-next-line no-return-await
+  return await axios(options)
+    .then(({ status, statusText, data }) => {
+      return res.status(status).json({ status, statusText, data: data.data || data })
     })
     .catch((error) => {
       if (error.response) {
@@ -120,6 +115,6 @@ export const proxy = (req: ClientSideReq /* , res?: ServerResponse */) => {
       } else {
         console.error('error')
       }
-      return Promise.reject(error)
+      throw error
     })
 }

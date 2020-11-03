@@ -1,15 +1,13 @@
 import express, { Request, Response, NextFunction } from 'express'
-// todo: should fix cannot find module cors, compression error
-// import cors from 'cors'
-// import compression from 'compression'
-// eslint-disable-next-line import/no-extraneous-dependencies
+import cors from 'cors'
+import compression from 'compression'
 import bodyParser from 'body-parser'
 
 export default (routes: express.Router) => {
   const app = express()
 
-  // app.use(cors())
-  // app.use(compression())
+  app.use(cors())
+  app.use(compression())
   app.use(bodyParser.urlencoded({ limit: '100mb', extended: false }))
   app.use(bodyParser.json())
 

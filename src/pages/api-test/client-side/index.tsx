@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '~components/Layout'
 import { api } from '~services/api'
 
-const clientSide = ({ name }: any) => {
+const clientSide = () => {
+  const [productName, setProductName] = useState('')
   useEffect(() => {
     const getProductData = async () => {
       try {
@@ -17,14 +18,15 @@ const clientSide = ({ name }: any) => {
         throw error
       }
     }
-    getProductData().then((res) => console.log(res))
+    getProductData().then(({ data }) => {
+      setProductName(data.descriptions.name || '')
+    })
   }, [])
 
   return (
     <Layout title="Api Test on ClientSide">
       <p>
-        Get product name is
-        <span style={{ fontWeight: 'bold', color: 'blue' }}>{name}</span>
+        Get product name is <span style={{ fontWeight: 'bold', color: 'blue' }}>{productName}</span>
       </p>
     </Layout>
   )

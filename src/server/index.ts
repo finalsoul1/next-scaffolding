@@ -9,6 +9,8 @@ const handle = app.getRequestHandler()
 const port = process.env.PORT || 3000
 const router = Router()
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 router.post('/api/:key', proxy)
 
 router.get('*', (req: Request, res: Response) => {
