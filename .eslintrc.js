@@ -20,7 +20,8 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react'],
   rules: {
-    'react/prop-types': 0,
+    'react/prop-types': 'off',
+    'react/jsx-one-expression-per-line': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-throw-literal': 'off',
     'no-console': 'off',
