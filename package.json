@@ -22,6 +22,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-query": "^2.23.1",
+    "react-query-devtools": "^2.6.1",
     "webpack-merge-and-include-globally": "^2.1.26"
   },
   "devDependencies": {
