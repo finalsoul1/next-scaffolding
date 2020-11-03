@@ -19,19 +19,19 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
       <header>
         <nav>
           <Link href="/">
-            <a style={{marginRight: "10px"}}>Home</a>
+            <a style={{ marginRight: '10px' }}>Home</a>
           </Link>
           <Link href="/about">
-            <a style={{marginRight: "10px"}}>About</a>
+            <a style={{ marginRight: '10px' }}>About</a>
           </Link>
           <Link href="/users">
-            <a style={{marginRight: "10px"}}>Users List</a>
+            <a style={{ marginRight: '10px' }}>Users List</a>
           </Link>
           <Link href="/api/users">
-            <a style={{marginRight: "10px"}}>Users API</a>
+            <a style={{ marginRight: '10px' }}>Users API</a>
           </Link>
           <Link href="/api-test/server-side">
-            <a style={{marginRight: "10px"}}>Api test on server side</a>
+            <a style={{ marginRight: '10px' }}>Api test on server side</a>
           </Link>
           <Link href="/api-test/client-side">
             <a>Api test on client side</a>
