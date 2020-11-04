@@ -1,9 +1,9 @@
+import React from 'react'
 import type { AppProps } from 'next/app'
 import { NextPageContext, NextComponentType } from 'next'
-import React from 'react'
 import { ThemeProvider } from 'emotion-theming'
 import { Reset } from 'styled-reset'
-import theme from '~theme/index'
+import theme from '~theme/theme'
 import MainTemplate from '~components/Template/Main'
 
 interface ForGetInitialProps {
