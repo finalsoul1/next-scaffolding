@@ -1,6 +1,7 @@
 import React from 'react'
+import { Heading, Flex } from 'rebass'
+import styled from '@emotion/styled'
 // import uniqId from 'uniqid'
-import { Button } from 'rebass'
 
 // const navItems = [
 //   {
@@ -42,12 +43,20 @@ import { Button } from 'rebass'
 //     prod: true,
 //   },
 // ]
+const NavBox = styled(Flex)`
+  width: 18%;
+  min-width: 300px;
+`
 
 const NavViewer = () => {
   return (
-    <div>
-      <Button variant="black">버튼 테스트</Button>
-    </div>
+    <NavBox p={2} bg="gray.2">
+      <Heading fontSize={5}>
+        dosan <br />
+        seoulstore <br />
+        admin
+      </Heading>
+    </NavBox>
   )
 }
 

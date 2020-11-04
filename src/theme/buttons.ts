@@ -12,7 +12,7 @@ const buttons = {
     variant: 'buttons.default',
     bg: 'black',
     ':hover, :focus': {
-      bg: 'gray',
+      bg: 'gray.6',
     },
   },
 }
