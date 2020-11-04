@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "ts-node -r tsconfig-paths/register --project tsconfig.server.json src/server/index.ts",
-    "build:server": "tsc --project tsconfig.server.json",
+    "build:server": "tsc --project tsconfig.server.json && tscpaths -p tsconfig.server.json -s ./src -o ./dist",
     "build:next": "next build",
     "build": "npm run build:next && npm run build:server",
     "start": "NODE_ENV=production node dist/server/index.js",
@@ -38,6 +38,7 @@
     "styled-components": "^5.2.1",
     "styled-reset": "^4.3.0",
     "uniqid": "^5.2.0",
+    "tscpaths": "^0.0.9",
     "webpack-merge-and-include-globally": "^2.1.26"
   },
   "devDependencies": {
