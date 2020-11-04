@@ -1,30 +1,28 @@
-import express, { Router, Request, Response } from 'express'
+import { Router, Request, Response } from 'express'
 import next from 'next'
-import { proxy } from '~services/api'
+import express from './express'
+import { proxy } from '../services/api'
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
-const port = process.env.PORT || 3000
+const port = 9000
+const ip = '0.0.0.0'
 const router = Router()
 
-router.post('/api/:name', proxy)
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+router.post('/api/:key', proxy)
 
 router.get('*', (req: Request, res: Response) => {
   return handle(req, res)
 })
-;(async () => {
-  try {
-    await app.prepare()
-    const server = express()
-    server.use(router)
 
-    server.listen(port, (err?: any) => {
-      if (err) throw err
-      console.log(`> Ready on localhost:${port} - env ${process.env.NODE_ENV}`)
-    })
-  } catch (e) {
-    console.error(e)
-    process.exit(1)
-  }
-})()
+app.prepare().then(() => {
+  const server = express(router)
+
+  server.listen(port, ip, (err?: any) => {
+    if (err) throw err
+    console.log(`> Ready on ${ip}:${port} - env ${process.env.NODE_ENV}`)
+  })
+})

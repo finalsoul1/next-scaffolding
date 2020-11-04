@@ -1,28 +1,27 @@
+import type { AppProps } from 'next/app'
+import { NextPageContext, NextComponentType } from 'next'
 import React from 'react'
-import { AppProps } from 'next/app'
-import theme from '~theme/index'
 import { ThemeProvider } from 'emotion-theming'
+import theme from '~theme/index'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  // eslint-disable-next-line react/jsx-props-no-spreading
-
-  return (
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-    </ThemeProvider>
-  )
+interface ForGetInitialProps {
+  Component: NextComponentType
+  ctx: NextPageContext
 }
 
-// Only uncomment this method if you have blocking data requirements for
-// every single page in your application. This disables the ability to
-// perform automatic static optimization, causing every page in your app to
-// be server-side rendered.
-//
-// MyApp.getInitialProps = async (appContext) => {
-//   // calls page's `getInitialProps` and fills `appProps.pageProps`
-//   const appProps = await App.getInitialProps(appContext);
-//
-//   return { ...appProps }
-// }
+const RootApp = ({ Component, pageProps }: AppProps) => {
+  return
+  <ThemeProvider theme={theme}>
+  <Component {...pageProps.props} />
+  </ThemeProvider>
+}
 
-export default MyApp
+RootApp.getInitialProps = async ({ Component, ctx }: ForGetInitialProps) => {
+  let pageProps = {}
+
+  if (Component.getInitialProps) pageProps = await Component.getInitialProps({ ...ctx })
+
+  return { pageProps }
+}
+
+export default RootApp
