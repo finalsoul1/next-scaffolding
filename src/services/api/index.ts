@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http'
-import { NextApiResponse } from 'next'
 import axios from 'axios'
+import { Response } from 'express'
 import apiMap from './map'
 
 // todo: move to src/interface
@@ -95,15 +95,14 @@ export const api = async (
     })
 }
 
-export const proxy = async (req: ClientSideReq, res: NextApiResponse) => {
+export const proxy = (req: ClientSideReq, res: Response) => {
   const config = {
     key: req.params.key,
     data: req.body,
   }
   const options = getApiOptions(config)
 
-  // eslint-disable-next-line no-return-await
-  return await axios(options)
+  return axios(options)
     .then(({ status, statusText, data }) => {
       return res.status(status).json({ status, statusText, data: data.data || data })
     })
