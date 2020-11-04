@@ -1,8 +1,8 @@
 import React from 'react'
-import { Flex } from 'rebass'
+import MainTemplate from '~components/Template/Main'
 
-const IndexPage = () => {
-  return <Flex>dfjdskl;fjdsk;al</Flex>
+const Main = () => {
+  return <MainTemplate>메인페이지</MainTemplate>
 }
 
-export default IndexPage
+export default Main
