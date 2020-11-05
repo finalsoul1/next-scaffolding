@@ -1,6 +1,10 @@
+import React from 'react'
 import type { AppProps } from 'next/app'
 import { NextPageContext, NextComponentType } from 'next'
-import React from 'react'
+import { ThemeProvider } from 'emotion-theming'
+import { Reset } from 'styled-reset'
+import theme from '~theme/theme'
+import MainTemplate from '~components/Template/Main'
 
 interface ForGetInitialProps {
   Component: NextComponentType
@@ -8,7 +12,14 @@ interface ForGetInitialProps {
 }
 
 const RootApp = ({ Component, pageProps }: AppProps) => {
-  return <Component {...pageProps.props} />
+  return (
+    <ThemeProvider theme={theme}>
+      <MainTemplate>
+        <Reset />
+        <Component {...pageProps.props} />
+      </MainTemplate>
+    </ThemeProvider>
+  )
 }
 
 RootApp.getInitialProps = async ({ Component, ctx }: ForGetInitialProps) => {
