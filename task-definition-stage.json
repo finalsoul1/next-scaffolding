@@ -26,10 +26,22 @@
       "linuxParameters": null,
       "cpu": 0,
       "environment": [
-        {"SEOKCHON_SERVER":"https://seokchon-stage.seoulstore.com"},
-        {"API_SERVER":"https://gateway-stage.seoulstore.com"},
-        {"LAMBDA_SERVER":"https://seongnam.seoulstore.com"},
-        {"SINSA_SERVER":"https://sinsa-stage.seoulstore.com"}
+        {
+          "name":"SEOKCHON_SERVER",
+          "value":"https://seokchon-stage.seoulstore.com"
+        },
+        {
+          "name":"API_SERVER",
+          "value":"https://gateway-stage.seoulstore.com"
+        },
+        {
+          "name":"LAMBDA_SERVER",
+          "value":"https://seongnam.seoulstore.com"
+        },
+        {
+          "name":"SINSA_SERVER",
+          "value":"https://sinsa-stage.seoulstore.com"
+        }
       ],
       "resourceRequirements": null,
       "ulimits": null,
