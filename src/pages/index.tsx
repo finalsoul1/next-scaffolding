@@ -1,19 +1,7 @@
 import React from 'react'
-import Link from 'next/link'
-import Layout from '~components/Layout'
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js </h1>
-    <span role="img" aria-label="Panda">
-      👋
-    </span>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+const Main = () => {
+  return <div>메인페이지</div>
+}
 
-export default IndexPage
+export default Main
