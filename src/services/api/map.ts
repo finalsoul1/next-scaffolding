@@ -1,11 +1,11 @@
 const apiMap = (key: string) => {
   const map: { [index: string]: { url: string; method: string } } = {
     getProduct: {
-      url: 'https://gateway-stage.seoulstore.com/siteProducts/:id',
+      url: '',
       method: 'GET',
     },
     getCategories: {
-      url: 'https://gateway-stage.seoulstore.com/siteCategories',
+      url: '',
       method: 'GET',
     },
   }

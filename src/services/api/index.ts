@@ -42,10 +42,6 @@ const bodyBuilder = (data: any, params: Array<string>, body: any) => {
 }
 
 const getApiOptions = (config: { [key: string]: any }) => {
-  const headers = {
-    Authorization: `Basic ${Buffer.from('seoulstore:devteam!').toString('base64')}`,
-    'D-Authorization': 'bXlnb29kczpjanJjanJxa3I0ZHlkZ25sV2tk',
-  }
   const apiOptions: any = apiMap(config.key)
   const params = findParamsInUrl(apiOptions.url)
   const requestUrl = makeRequestUrl(apiOptions.url, params, config.data)
@@ -54,7 +50,6 @@ const getApiOptions = (config: { [key: string]: any }) => {
   return {
     url: requestUrl,
     method: apiOptions.method,
-    headers,
     ...(apiOptions.method.toLowerCase() === 'get' ? { params: body } : { data: body }),
     validateStatus: (status: number) => status >= 200 && status < 500,
   }
